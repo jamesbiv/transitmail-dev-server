@@ -18,10 +18,10 @@ The server configuration supports the following features:
 <ul>
 <li>WebSocket service located on port <b>8025</b> for <i>SMTP</i></li>
 <li>WebSocket service located on port <b>8143</b> for <i>IMAP</i></li>
-<li><i>SMTP</i> port <b>25</b> is protected by STARTSSL</li>
+<li><i>SMTP</i> port <b>25</b> is protected by <i>STARTSSL</i></li>
 <li>Add and remove users</li>
-<li>Send to localhost or myhostname</li>
-<li>Customise myhostname</li>
+<li>Send to <b>localhost</b> or <b>myhostname</b></li>
+<li>Customise <b>myhostname</b></li>
 <li>Log output for both Dovecot and Postfix</li>
 </ul>
 
@@ -43,7 +43,9 @@ To generate the self signed certificate, run the following:
 openssl req -new -x509 -days 365 -nodes -out self.pem -keyout self.pem
 ```
 
-<b>Note:</b> Using a self signed certificate will create an <i>invalid certificate error</i> within most browsers. See the section on `Invalid certificate errors` below for a solution to this error.
+<b>Note:</b> The FQDN can be anything but if you wish to match the domain with Postfix's hostname settings see `Change hostname` below.
+
+<b>Important Note:</b> Using a self signed certificate will create an <i>invalid certificate error</i> within most browsers. See the section on `Invalid certificate errors` below for a solution to this error.
 
 ### b) Use LetsEncrypt or BYO SSL certificate
 
@@ -55,13 +57,17 @@ Bring-your-own (BYO) certificates are simply copied to the container in PEM form
 
 <b>Important Note:</b> Ensure that both the key and certificate are included in `/self.pem`.
 
+If the image has already been built without a certificate in the `/self.pem` this file can be copied to container using: 
+
 ```
 docker cp <certificate_filename.pem> transitmail:/self.pem
 ```
 
-<b>Note:</b> Restart the docker container with `docker restart transitmail` <i>(if needed)</i>
+<b>Note:</b> To restart the docker container use `docker restart transitmail` <i>(if required)</i>
 
 ### 3. Build the Dockerfile image
+
+Visit the working directory `cd transitmail-dev-server` and build the docker image.
 
 ```
 docker build -t transitmail .

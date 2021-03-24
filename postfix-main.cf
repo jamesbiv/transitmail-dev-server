@@ -21,7 +21,7 @@ readme_directory = no
 # fresh installs.
 compatibility_level = 2
 
-# SASL paramaters
+# SASL parameters
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_path = private/auth
 smtpd_sasl_type = dovecot
